@@ -9,7 +9,7 @@ const {
 } = require("../controllers/studentController");
 
 const studentValidation = require("../validations/studentValidation");
-const authMiddleware = require("../middlewares/authMiddleware");
+const authMiddleware = require("../middlewares/authMiddleWare");
 const roleMiddleware = require("../middlewares/roleMiddleware");
 
 const studentRouter = express.Router();

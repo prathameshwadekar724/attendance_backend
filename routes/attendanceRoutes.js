@@ -9,7 +9,7 @@ const {
 } = require("../controllers/attendanceController");
 
 const attendanceValidation = require("../validations/attendanceValidation");
-const authMiddleware = require("../middlewares/authMiddleware");
+const authMiddleware = require("../middlewares/authMiddleWare");
 const roleMiddleware = require("../middlewares/roleMiddleware");
 
 const attendanceRouter = express.Router();
