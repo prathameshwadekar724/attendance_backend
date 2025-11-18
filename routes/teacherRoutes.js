@@ -1,6 +1,6 @@
 const express = require("express");
 const { addTeacher, getTeachers } = require("../controllers/teacherController");
-const auth = require("../middlewares/authMiddleware");
+const auth = require("../middlewares/authMiddleWare");
 const role = require("../middlewares/roleMiddleware");
 
 const router = express.Router();
