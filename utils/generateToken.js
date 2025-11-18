@@ -4,7 +4,9 @@ let generateToken = (user)=>{
         {
             id:user._id,
             email:user.email,
-            role:user.role
+            role:user.role,
+            class:user.classAssigned || null,
+            division:user.division || null
         },
         process.env.JWT_SECRET,
         {expiresIn:"7d"}

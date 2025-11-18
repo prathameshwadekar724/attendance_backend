@@ -5,7 +5,8 @@ const {
     updateAttendance,
     getTodayAttendance,
     getAttendanceByStudent,
-    getAttendanceByDate
+    getAttendanceByDate,
+    getTodayAttendanceForAdmin
 } = require("../controllers/attendanceController");
 
 const attendanceValidation = require("../validations/attendanceValidation");
@@ -60,5 +61,5 @@ attendanceRouter.post(
     roleMiddleware("admin", "teacher"),
     getAttendanceByDate
 );
-
+attendanceRouter.get("/admin/today",authMiddleware,roleMiddleware("admin","teacher"),getTodayAttendanceForAdmin);
 module.exports = attendanceRouter;

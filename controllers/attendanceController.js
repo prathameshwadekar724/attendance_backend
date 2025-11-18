@@ -76,6 +76,18 @@ let updateAttendance = async(req,res)=>{
 
 let getTodayAttendance = async(req,res)=>{
     try {
+
+        let today = new Date().setHours(0,0,0,0);
+        
+        let result = await attendanceModel.find({date:today}).populate({path:"studentId",match:{class:req.user.class,division:req.user.division}});
+
+        return res.send({status:1,data:result});
+    } catch (error) {
+        return res.send({status:0,error:error.message});
+    }
+}
+let getTodayAttendanceForAdmin = async(req,res)=>{
+    try {
         let today = new Date().setHours(0,0,0,0);
         let result = await attendanceModel.find({date:today}).populate("studentId");
 
@@ -84,7 +96,6 @@ let getTodayAttendance = async(req,res)=>{
         return res.send({status:0,error:error.message});
     }
 }
-
 let getAttendanceByStudent = async(req,res)=>{
     try {
         let studentId = req.params.id;
@@ -111,4 +122,4 @@ let getAttendanceByDate = async(req,res)=>{
     }
 }
 
-module.exports={markAttendance,markClassAttendance,updateAttendance,getTodayAttendance,getAttendanceByStudent,getAttendanceByDate};
+module.exports={markAttendance,markClassAttendance,updateAttendance,getTodayAttendance,getAttendanceByStudent,getAttendanceByDate,getTodayAttendanceForAdmin};

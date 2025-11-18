@@ -1,4 +1,4 @@
-const {userModel} = require("../models/User");
+const {userModel, teacherModel} = require("../models/User");
 const bcrypt = require("bcrypt");
 const generateToken = require("../utils/generateToken");
 let register = async(req,res)=>{
@@ -32,7 +32,9 @@ let login = async(req,res)=>{
         let {email,password} = req.body;
 
         let dbUser = await userModel.findOne({email});
-
+        if(!dbUser){
+            dbUser = await teacherModel.findOne({email});
+        }
         if(!dbUser){
             return res.send({status:0,message:"Email not found"});
         }
