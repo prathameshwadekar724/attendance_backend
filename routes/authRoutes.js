@@ -1,6 +1,7 @@
 const express = require("express");
 const { register, login } = require("../controllers/authController");
 const userValidation = require("../validations/userValidation");
+const authMiddleWare = require("../middlewares/authMiddleWare");
 const authRouter = express.Router();
 
 authRouter.post("/register",(req,res,next)=>{
@@ -11,7 +12,7 @@ authRouter.post("/register",(req,res,next)=>{
 
 
 authRouter.post("/login",login);
-authRouter.get("/verify", authMiddleware, (req, res) => {
+authRouter.get("/verify", authMiddleWare, (req, res) => {
     return res.send({ status: 1, message: "Valid token" });
 });
 module.exports=authRouter;
