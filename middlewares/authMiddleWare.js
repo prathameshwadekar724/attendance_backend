@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
-
-let authMiddleWare=(req,res,next)=>{
+const {userModel,teacherModel} = require("../models/User");
+let authMiddleWare= async(req,res,next)=>{
     let token = req.headers["authorization"];
 
     if(!token){
@@ -9,6 +9,11 @@ let authMiddleWare=(req,res,next)=>{
     try {
         token = token.split(" ")[1];
         let decoded = jwt.verify(token,process.env.JWT_SECRET);
+        let user = await userModel.findById(decoded.id) || await teacherModel.findById(decoded.id);
+
+        if(!user || user.sessionId!==decoded.sessionId){
+            return res.send({status:0,message:"Invalid session. Login again"});
+        }
         req.user = decoded;
         next();
     } catch (error) {

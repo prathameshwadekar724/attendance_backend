@@ -44,7 +44,11 @@ let login = async(req,res)=>{
         if(!isMatch){
             res.send({status:0,message:"Incorrect Password"});
         }
-        let token = generateToken(dbUser);
+
+        let sessionId = Date.now().toString();
+        dbUser.sessionId = sessionId;
+        await dbUser.save();
+        let token = generateToken(dbUser,sessionId);
         res.send({status:1,message:"Login successfully",token,data:dbUser});
     }catch(err){
         res.send({status:0,error:err.message});

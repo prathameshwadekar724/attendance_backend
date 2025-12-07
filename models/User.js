@@ -4,7 +4,8 @@ let userSchema = mongoose.Schema({
     name:{type:String,required:true},
     email:{type:String,required:true,unique:true},
     password:{type:String,required:true},
-    role:{type:String,required:true}
+    role:{type:String,required:true},
+    sessionId:{type:String,default:null}
 });
 
 let studentSchema = mongoose.Schema({
@@ -28,7 +29,8 @@ let tacherSchema = mongoose.Schema({
     password:{type:String,required:true},
     role:{type:String,required:true},
     classAssigned:{type:String,required:true},
-    division:{type:String,required:true}
+    division:{type:String,required:true},
+    sessionId:{type:String,default:null}
 })
 let userModel = mongoose.model("userData",userSchema);
 let studentModel = mongoose.model("studentData",studentSchema);
