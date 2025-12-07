@@ -50,7 +50,17 @@ let login = async(req,res)=>{
         await dbUser.save();
         let token = generateToken(dbUser,sessionId);
         
-        res.send({status:1,message:"Login successfully",token,data:dbUser});
+         const safeUser = {
+            _id: dbUser._id,
+            name: dbUser.name,
+            email: dbUser.email,
+            role: dbUser.role,
+        };
+        if (dbUser.role === "teacher") {
+            safeUser.classAssigned = dbUser.classAssigned;
+            safeUser.division = dbUser.division;
+        }
+        res.send({status:1,message:"Login successfully",token,data:safeUser});
     }catch(err){
         res.send({status:0,error:err.message});
     }
