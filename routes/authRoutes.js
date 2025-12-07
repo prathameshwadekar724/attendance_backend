@@ -11,5 +11,7 @@ authRouter.post("/register",(req,res,next)=>{
 
 
 authRouter.post("/login",login);
-
+authRouter.get("/verify", authMiddleware, (req, res) => {
+    return res.send({ status: 1, message: "Valid token" });
+});
 module.exports=authRouter;
